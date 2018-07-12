@@ -12,5 +12,5 @@
 */
 
 Route::get('/', 'IndexController@index');
-Route::post('/', 'IndexController@getColors');
+Route::post('/index', 'IndexController@store');
 
