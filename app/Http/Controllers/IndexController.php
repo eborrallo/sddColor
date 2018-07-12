@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Decolorate;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
+
 
 class IndexController extends Controller
 {
@@ -16,7 +17,7 @@ class IndexController extends Controller
     {
         return view('index');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -32,9 +33,15 @@ class IndexController extends Controller
                     $fecha = new \DateTime();
                     $name = $fecha->getTimestamp() . '.' . $file->getClientOriginalExtension();
                     $request->file('imageToGetColor')->move("uploads", $name);
-                } catch (FileNotFoundException $e) {
 
+                    $Decolorate = new Decolorate($file);
+                    $Decolorate->sayHi();
+
+
+                } catch (\Exception $e) {
+                    echo $e;
                 }
+
             }
         }
         return view('index');
