@@ -51,7 +51,7 @@
 
 
     <div class="content">
-        {!! Form::open(array('url' => '/index', 'files' => true,'method' => 'post')) !!}
+        {!! Form::open(array('url' => '/', 'files' => true,'method' => 'post')) !!}
         Select a picture and we will return what color predominates
         <br>
         {!! Form::file("imageToGetColor", $attributes = array()) !!}

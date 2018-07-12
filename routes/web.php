@@ -12,5 +12,5 @@
 */
 
 Route::get('/', 'IndexController@index');
-Route::post('/index', 'IndexController@store');
+Route::post('/', 'IndexController@store');
 
