@@ -48,8 +48,33 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
+    <table border="1">
+        <tr>
 
+            <th colspan="3">
+                <img width="100" height="100" src="<?php
+                if (isset($colors->imagePath))
+                    echo $colors->imagePath
+                ?>">
+                <br>
+                Image
+            </th>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td>Count</td>
+            <td>Color value</td>
+        </tr>
+        <?php
+        if (isset($colors->hexarray)) {
+            $color = array_keys($colors->hexarray);
+            for ($i = 0; $i <= count($color) - 1; $i++) {
+                echo "<tr><td bgcolor=" . $color[$i] . " width=16 height=16></td>&nbsp;<td>" . $colors->hexarray[$color[$i]] . "</td><td>$color[$i]</td></tr>";
+            }
+        }
 
+        ?>
+    </table>
     <div class="content">
         {!! Form::open(array('url' => '/', 'files' => true,'method' => 'post')) !!}
         Select a picture and we will return what color predominates
