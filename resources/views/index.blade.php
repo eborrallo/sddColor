@@ -11,53 +11,25 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        input {
-            margin: 10px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-
-    </style>
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="flex-center position-ref full-height">
+
+    <?php
+    if (isset($colors->hexarray)) {
+    $color = array_keys($colors->hexarray);
+    ?>
     <table border="1">
         <tr>
+            <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
+                <img height="100" width="100"  src="{!! $colors->imagePath!!}">
+            </th>
+        </tr>
+        <tr>
 
-            <th colspan="3">
-                <img width="100" height="100" src="<?php
-                if (isset($colors->imagePath))
-                    echo $colors->imagePath
-                ?>">
-                <br>
-                Image
+            <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
+                I'm filled with the image color type
             </th>
         </tr>
         <tr>
@@ -66,10 +38,9 @@
             <td>Color value</td>
         </tr>
         <?php
-        if (isset($colors->hexarray)) {
-            $color = array_keys($colors->hexarray);
+
             for ($i = 0; $i <= count($color) - 1; $i++) {
-                echo "<tr><td bgcolor=" . $color[$i] . " width=16 height=16></td>&nbsp;<td>" . $colors->hexarray[$color[$i]] . "</td><td>$color[$i]</td></tr>";
+                echo "<tr><td bgcolor=" . $color[$i] . " width=16 height=16></td>&nbsp;<td>" . intval($colors->hexarray[$color[$i]]-1) . "</td><td>$color[$i]</td></tr>";
             }
         }
 

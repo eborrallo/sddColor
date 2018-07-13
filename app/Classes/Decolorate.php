@@ -7,23 +7,24 @@ class Decolorate
 {
 
     private $image = null;
-    const AQUA = "00FFF";
-    const BLACK = "000000";
-    const BLUE = "0000FF";
-    const FUCHSIA = "FF00FF";
-    const GRAY = "808080";
-    const GREEN = "008000";
-    const LIME = "00FF00";
-    const MAROON = "800000";
-    const NAVY = "000080";
-    const OLIVE = "808000";
-    const PURPLE = "800080";
-    const RED = "FF0000";
-    const SILVER = "C0C0C0";
-    const TEAL = "008080";
-    const WHITE = "FFFFFF";
-    const YELLOW = "FFFF00";
-    
+    const COLORS = [
+        "00ffff",
+        "000000",
+        "0000ff",
+        "ff00ff",
+        "808080",
+        "008000",
+        "00ff00",
+        "800000",
+        "000080",
+        "808000",
+        "800080",
+        "ff0000",
+        "c0c0c0",
+        "008080",
+        "ffffff",
+        "ffff00"];
+
     /**
      * Constructor
      */
@@ -54,14 +55,39 @@ class Decolorate
 
             $imgWidth = imagesx($image);
             $imgHeight = imagesy($image);
-            $hexArray = null;
+            $hexArray = $this::COLORS;
             for ($y = 0; $y < $imgHeight; $y++) {
                 for ($x = 0; $x < $imgWidth; $x++) {
                     $index = imagecolorat($image, $x, $y);
                     $Colors = imagecolorsforindex($image, $index);
-                    $hexArray[] = substr("0" . dechex($Colors['red']), -2) . substr("0" . dechex($Colors['green']), -2) . substr("0" . dechex($Colors['blue']), -2);
+                   $pixelColor=  sprintf('%02x%02x%02x',$Colors['red'], $Colors['green'], $Colors['blue']);
+//                    if (in_array($pixelColor,  $this::COLORS)) {
+//                        $hexArray[] = $pixelColor;
+//                    }
+                    if ($pixelColor==$this::COLORS[0] or
+                        $pixelColor==$this::COLORS[1] or
+                        $pixelColor==$this::COLORS[2] or
+                        $pixelColor==$this::COLORS[3] or
+                        $pixelColor==$this::COLORS[4] or
+                        $pixelColor==$this::COLORS[5] or
+                        $pixelColor==$this::COLORS[6] or
+                        $pixelColor==$this::COLORS[7] or
+                        $pixelColor==$this::COLORS[8] or
+                        $pixelColor==$this::COLORS[9] or
+                        $pixelColor==$this::COLORS[10] or
+                        $pixelColor==$this::COLORS[11] or
+                        $pixelColor==$this::COLORS[12] or
+                        $pixelColor==$this::COLORS[13] or
+                        $pixelColor==$this::COLORS[14] or
+                        $pixelColor==$this::COLORS[15]
+                    ){
+                        $hexArray[] = $pixelColor;
+                    }
+
+
                 }
             }
+
             $hexArray = array_count_values($hexArray);
             natsort($hexArray);
             $hexArray = array_reverse($hexArray, true);
