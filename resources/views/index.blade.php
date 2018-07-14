@@ -18,13 +18,15 @@
 
     <?php
     if (isset($colors->hexarray)) {
-    $color = array_keys($colors->hexarray);
+
+        $color = array_keys($colors->hexarray);
+    $colorVal = array_values($colors->hexarray);
     ?>
     <table border="1">
         @if (isset($colors->error))
             <tr>
                 <th colspan="3" height="100" width="100">
-                    <img height="100" width="100" src="{!! $colors->imagePath!!}">
+                    <img height="100" width="100" src="{{ $colors->imagePath}}">
                 </th>
             </tr>
             <tr>
@@ -35,13 +37,15 @@
             </tr>
         @else
             <tr>
-                <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
-                    <img height="100" width="100" src="{!! $colors->imagePath!!}">
+                <th colspan="3" height="100" width="100" bgcolor="{{ $color[0]}}">
+                    <img height="100" width="100" src="{{ $colors->imagePath}}">
                 </th>
             </tr>
             <tr>
-                <th colspan="3"  bgcolor="{!! $color[0]!!}">
+                <th colspan="3" bgcolor="{!! $color[0]!!}">
                     I'm filled with the image color type
+                    <br>
+                    The winner color is : {{array_search($color[0],$colors->COLORS)}} ({{$color[0]}})
 
                 </th>
 

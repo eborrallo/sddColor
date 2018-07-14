@@ -9,22 +9,23 @@ class Decolorate
     private $path;
     private $image;
     const COLORS = [
-        "#00ffff",
-        "#000000",
-        "#0000ff",
-        "#ff00ff",
-        "#808080",
-        "#008000",
-        "#00ff00",
-        "#800000",
-        "#000080",
-        "#808000",
-        "#800080",
-        "#ff0000",
-        "#c0c0c0",
-        "#008080",
-        "#ffffff",
-        "#ffff00"];
+        "AQUA" => "#00ffff",
+        "BLACK" => "#000000",
+        "BLUE" => "#0000ff",
+        "FUCHSIA" => "#ff00ff",
+        "GRAY" => "#808080",
+        "GREEN" => "#008000",
+        "LIME" => "#00ff00",
+        "MAROON" => "#800000",
+        "NAVY" => "#000080",
+        "OLIVE" => "#808000",
+        "PURPLE" => "#800080",
+        "RED" => "#ff0000",
+        "SILVER" => "#c0c0c0",
+        "TEAL" => "#008080",
+        "WHITE" => "#ffffff",
+        "YELLOW" => "#ffff00"
+    ];
 
     /**
      * Constructor
@@ -67,23 +68,29 @@ class Decolorate
                 $pixelColor = sprintf("#%02x%02x%02x", $Colors['red'], $Colors['green'], $Colors['blue']);
                 if (in_array($pixelColor, $this::COLORS)) {
                     $hexArray[] = $pixelColor;
+//                    $hexArray[$index] = $this::COLORS[$index];
                 }
             }
-            //$hexArray= array_intersect($hexArray, $this::COLORS);
         }
 
         $hexArray = array_count_values($hexArray);
+        $a=array_combine($hexArray,$this::COLORS);
+        var_dump( $a);
+
         natsort($hexArray);
         $hexArray = array_reverse($hexArray, true);
-        $toResturn = new \stdClass();
-        $toResturn->hexarray = $hexArray;
-        $toResturn->imagePath = $this->path;
+        $toReturn = new \stdClass();
+        $toReturn->hexarray = $hexArray;
+        $toReturn->imagePath = $this->path;
+        $toReturn->COLORS = $this::COLORS;
+
+
 
         $color = array_keys($hexArray);
-        if ( intval($hexArray[$color[0]] - 1)<=0){
-            $toResturn->error='Any color predominates in the list';
+        if (intval($hexArray[$color[0]] - 1) <= 0) {
+            $toReturn->error = 'Any color predominates in the list';
         }
-        return $toResturn;
+        return $toReturn;
 
     }
 
