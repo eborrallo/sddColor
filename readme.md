@@ -1,5 +1,5 @@
 This is a thecnical prove
-## Quikliy start guide to  install and execute app!
+## Quick start guide to  install and execute app!
 
   - Open cmd / terminal  and go to the path when set the project
   - Copy this command and paste to termminal .
