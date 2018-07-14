@@ -28,7 +28,7 @@
                 </th>
             </tr>
             <tr>
-                <th colspan="3" height="100" width="100">
+                <th colspan="3">
                     {{$colors->error}}
                 </th>
 
@@ -40,7 +40,7 @@
                 </th>
             </tr>
             <tr>
-                <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
+                <th colspan="3"  bgcolor="{!! $color[0]!!}">
                     I'm filled with the image color type
 
                 </th>
