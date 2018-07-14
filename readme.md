@@ -5,7 +5,7 @@ This is a thecnical prove
   - Copy this command and paste to termminal .
 
 ```sh
- git clone git@github.com:eborrallo/sddColor.git
+ git clone https://github.com/eborrallo/sddColor.git
  cd sddColor
  composer install
  cp .env.example .env
