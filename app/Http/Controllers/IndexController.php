@@ -33,9 +33,10 @@ class IndexController extends Controller
                     $fecha = new \DateTime();
                     $name = $fecha->getTimestamp() . '.' . $file->getClientOriginalExtension();
                     $request->file('imageToGetColor')->move("uploads", $name);
-                    $Decolorate = new Decolorate('uploads/'.$name);
-
-                    return view('index',['colors'=>$Decolorate->getColor()]);
+                    $Decolorate = new Decolorate('uploads/' . $name);
+                    
+                    
+                    return view('index', ['colors' => $Decolorate->getColor()]);
                 } catch (\Exception $e) {
                     echo $e;
                 }

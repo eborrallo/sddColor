@@ -21,30 +21,51 @@
     $color = array_keys($colors->hexarray);
     ?>
     <table border="1">
-        <tr>
-            <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
-                <img height="100" width="100"  src="{!! $colors->imagePath!!}">
-            </th>
-        </tr>
-        <tr>
+        @if (isset($colors->error))
+            <tr>
+                <th colspan="3" height="100" width="100">
+                    <img height="100" width="100" src="{!! $colors->imagePath!!}">
+                </th>
+            </tr>
+            <tr>
+                <th colspan="3" height="100" width="100">
+                    {{$colors->error}}
+                </th>
 
-            <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
-                I'm filled with the image color type
-            </th>
-        </tr>
+            </tr>
+        @else
+            <tr>
+                <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
+                    <img height="100" width="100" src="{!! $colors->imagePath!!}">
+                </th>
+            </tr>
+            <tr>
+                <th colspan="3" height="100" width="100" bgcolor="{!! $color[0]!!}">
+                    I'm filled with the image color type
+
+                </th>
+
+            </tr>
+        @endif
         <tr>
             <td>Color</td>
             <td>Count</td>
             <td>Color value</td>
         </tr>
-        <?php
 
-            for ($i = 0; $i <= count($color) - 1; $i++) {
-                echo "<tr><td bgcolor=" . $color[$i] . " width=16 height=16></td>&nbsp;<td>" . intval($colors->hexarray[$color[$i]]-1) . "</td><td>$color[$i]</td></tr>";
-            }
-        }
 
-        ?>
+        @for ($i = 0; $i <= count($color) - 1; $i++)
+            <tr>
+                <td bgcolor={{$color[$i]}}   width=16 height=16></td>
+                &nbsp;
+                <td>  {{intval($colors->hexarray[$color[$i]] - 1)}}</td>
+                <td>{{$color[$i]}}</td>
+            </tr>
+
+
+        @endfor
+        <?php }?>
+
     </table>
     <div class="content">
         {!! Form::open(array('url' => '/', 'files' => true,'method' => 'post')) !!}
