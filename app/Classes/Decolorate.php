@@ -3,6 +3,8 @@
 namespace App\Classes;
 
 
+use App\Helpers\MathHelper;
+
 class Decolorate
 {
 
@@ -34,7 +36,7 @@ class Decolorate
     {   //IMPORTANT
         //This is not recommended for a production environment, but this code will never go to production.
         ini_set('memory_limit', '-1');
-        set_time_limit(120);
+        set_time_limit(0);
         //END IMPORTANT
 
         $this->path = $path;
@@ -58,33 +60,25 @@ class Decolorate
      */
     function getColor()
     {
+
         $imgWidth = imagesx($this->image);
         $imgHeight = imagesy($this->image);
         $hexArray = $this::COLORS;
         for ($y = 0; $y < $imgHeight; $y++) {
             for ($x = 0; $x < $imgWidth; $x++) {
                 $index = imagecolorat($this->image, $x, $y);
-                $Colors = imagecolorsforindex($this->image, $index);
-                $pixelColor = sprintf("#%02x%02x%02x", $Colors['red'], $Colors['green'], $Colors['blue']);
-                if (in_array($pixelColor, $this::COLORS)) {
-                    $hexArray[] = $pixelColor;
-//                    $hexArray[$index] = $this::COLORS[$index];
-                }
+                $colors = imagecolorsforindex($this->image, $index);
+                $hexArray[]=$this::getColorLowerDistance($colors);
             }
         }
 
         $hexArray = array_count_values($hexArray);
-        $a=array_combine($hexArray,$this::COLORS);
-        var_dump( $a);
-
         natsort($hexArray);
         $hexArray = array_reverse($hexArray, true);
         $toReturn = new \stdClass();
         $toReturn->hexarray = $hexArray;
         $toReturn->imagePath = $this->path;
         $toReturn->COLORS = $this::COLORS;
-
-
 
         $color = array_keys($hexArray);
         if (intval($hexArray[$color[0]] - 1) <= 0) {
@@ -94,5 +88,43 @@ class Decolorate
 
     }
 
+    function getColorLowerDistance($colorToCompare)
+    {
+        $lowerDistance = null;
+        $tmpColor = null;
+        foreach ($this::COLORS as $key => $color) {
+            $colorBase = $this::hex2rgb($color);
+            $distance = MathHelper::getDistance3D(array($colorToCompare['red'], $colorToCompare['green'], $colorToCompare['blue']), $colorBase);
+            if (!isset($lowerDistance)) {
+                $lowerDistance = $distance;
+                $tmpColor = $color;
+            } else if ($distance < $lowerDistance) {
+                $lowerDistance = $distance;
+                $tmpColor = $color;
+            } else if ($distance == $lowerDistance) {
+                $toReturn = $color;
+            }
+        }
+        $toReturn = $tmpColor;
+        return $toReturn;
+    }
 
+
+    function hex2rgb($hex)
+    {
+        $hex = str_replace("#", "", $hex);
+
+        if (strlen($hex) == 3) {
+            $r = hexdec(substr($hex, 0, 1) . substr($hex, 0, 1));
+            $g = hexdec(substr($hex, 1, 1) . substr($hex, 1, 1));
+            $b = hexdec(substr($hex, 2, 1) . substr($hex, 2, 1));
+        } else {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        }
+        $rgb = array($r, $g, $b);
+
+        return $rgb;
+    }
 }

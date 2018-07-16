@@ -75,6 +75,8 @@
         {!! Form::open(array('url' => '/', 'files' => true,'method' => 'post')) !!}
         Select a picture and we will return what color predominates
         <br>
+        This is a calculation of pixel by pixel, if you give us a very large image it will take a long time to process it, I recommend images 500x500, or 600x600, try not to exceed 1000x1000 if you do not want to wait a long time
+        <br>
         {!! Form::file("imageToGetColor", $attributes = array()) !!}
         <br>
         {!!  Form::submit('Check Colors!') !!}
